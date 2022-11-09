@@ -1,0 +1,13 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+    - "3000:3000"
+    command: pnpm dev
+    volumes:
+      - type: bind
+        source: ./frontend/
+        target: /frontend/
