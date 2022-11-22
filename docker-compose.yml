@@ -1,5 +1,16 @@
 version: '3'
 services:
+  db:
+    image: mysql:8.0.29
+    platform: linux/amd64
+    environment:
+      MYSQL_DATABASE: 'knowtfolio-db'
+      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_ROOT_HOST: '%'
+      TZ: 'Asia/Tokyo'
+    ports:
+      - "3306:3306"
+
   frontend:
     build:
       context: .
@@ -11,3 +22,19 @@ services:
       - type: bind
         source: ./frontend/
         target: /frontend/
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./openapi/openapi.yaml:/openapi.yaml
+    environment:
+      SWAGGER_JSON: /openapi.yaml
+
+  openapi-generator:
+    image: swaggerapi/swagger-codegen-cli
+    volumes:
+      - ./openapi/openapi.yaml:/home/openapi.yaml
+      - ./frontend/:/home/frontend/
+      - ./backend/:/home/backend/
