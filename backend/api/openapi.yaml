@@ -1,0 +1,87 @@
+openapi: 3.0.0
+info:
+  description: A sample API that uses a sample-site as an example to demonstrate features
+    in the OpenAPI 3.0 specification
+  title: Sample API
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+- url: http://localhost:8080
+paths:
+  /users:
+    get:
+      description: |
+        Returns all users
+      operationId: findUsers
+      parameters:
+      - description: tags to filter by
+        explode: true
+        in: query
+        name: tags
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: maximum number of results to return
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/User'
+                type: array
+          description: user response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: unexpected error
+components:
+  schemas:
+    User:
+      example:
+        name: Taro
+        id: 100
+        status: pending
+      properties:
+        id:
+          example: 100
+          format: int64
+          type: integer
+        name:
+          example: Taro
+          type: string
+        status:
+          description: user status
+          enum:
+          - pending
+          - active
+          - inactive
+          type: string
+      required:
+      - name
+      type: object
+    Error:
+      properties:
+        code:
+          format: int32
+          type: integer
+        type:
+          type: string
+        message:
+          type: string
+      type: object
