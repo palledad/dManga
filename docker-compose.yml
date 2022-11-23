@@ -33,7 +33,7 @@ services:
       SWAGGER_JSON: /openapi.yaml
 
   openapi-generator:
-    image: swaggerapi/swagger-codegen-cli
+    image: openapitools/openapi-generator-cli
     volumes:
       - ./openapi/openapi.yaml:/home/openapi.yaml
       - ./frontend/:/home/frontend/

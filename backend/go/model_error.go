@@ -17,3 +17,20 @@ type Error struct {
 
 	Message string `json:"message,omitempty"`
 }
+
+// AssertErrorRequired checks if the required fields are not zero-ed
+func AssertErrorRequired(obj Error) error {
+	return nil
+}
+
+// AssertRecurseErrorRequired recursively checks if required fields are not zero-ed in a nested slice.
+// Accepts only nested slice of Error (e.g. [][]Error), otherwise ErrTypeAssertionError is thrown.
+func AssertRecurseErrorRequired(objSlice interface{}) error {
+	return AssertRecurseInterfaceRequired(objSlice, func(obj interface{}) error {
+		aError, ok := obj.(Error)
+		if !ok {
+			return ErrTypeAssertionError
+		}
+		return AssertErrorRequired(aError)
+	})
+}

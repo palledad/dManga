@@ -13,10 +13,10 @@ To see how to make this your own, look here:
 [README](https://openapi-generator.tech)
 
 - API version: 1.0.0
-- Build date: 2022-11-22T08:59:30.245806Z[Etc/UTC]
+- Build date: 2022-11-23T01:44:51.480206Z[Etc/UTC]
+
 
 ### Running the server
-
 To run the server, follow these simple steps:
 
 ```
@@ -28,13 +28,7 @@ To run the server in a docker container
 docker build --network=host -t openapi .
 ```
 
-Once the image is built, just run
+Once image is built use
 ```
 docker run --rm -it openapi
 ```
-
-### Known Issue
-
-Endpoints sharing a common path may result in issues. For example, `/v2/pet/findByTags` and `/v2/pet/:petId` will result in an issue with the Gin framework. For more information about this known limitation, please refer to [gin-gonic/gin#388](https://github.com/gin-gonic/gin/issues/388) for more information.
-
-A workaround is to manually update the path and handler. Please refer to [gin-gonic/gin/issues/205#issuecomment-296155497](https://github.com/gin-gonic/gin/issues/205#issuecomment-296155497) for more information.

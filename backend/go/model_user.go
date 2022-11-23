@@ -18,3 +18,29 @@ type User struct {
 	// user status
 	Status string `json:"status,omitempty"`
 }
+
+// AssertUserRequired checks if the required fields are not zero-ed
+func AssertUserRequired(obj User) error {
+	elements := map[string]interface{}{
+		"name": obj.Name,
+	}
+	for name, el := range elements {
+		if isZero := IsZeroValue(el); isZero {
+			return &RequiredError{Field: name}
+		}
+	}
+
+	return nil
+}
+
+// AssertRecurseUserRequired recursively checks if required fields are not zero-ed in a nested slice.
+// Accepts only nested slice of User (e.g. [][]User), otherwise ErrTypeAssertionError is thrown.
+func AssertRecurseUserRequired(objSlice interface{}) error {
+	return AssertRecurseInterfaceRequired(objSlice, func(obj interface{}) error {
+		aUser, ok := obj.(User)
+		if !ok {
+			return ErrTypeAssertionError
+		}
+		return AssertUserRequired(aUser)
+	})
+}
