@@ -1,14 +1,8 @@
-FROM golang:1.10 AS build
-WORKDIR /go/src
-COPY go ./go
-COPY main.go .
+FROM golang:1.18.3
 
-ENV CGO_ENABLED=0
-RUN go get -d -v ./...
+WORKDIR /backend
 
-RUN go build -a -installsuffix cgo -o openapi .
+ARG GOPATH=/go
 
-FROM scratch AS runtime
-COPY --from=build /go/src/openapi ./
-EXPOSE 8080/tcp
-ENTRYPOINT ["./openapi"]
+COPY go.mod go.sum /backend/
+RUN go mod download

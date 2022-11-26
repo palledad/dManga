@@ -23,6 +23,16 @@ services:
         source: ./frontend/
         target: /frontend/
 
+  backend:
+    build: backend
+    ports:
+      - "8080:8080"
+    command: go run main.go
+    volumes:
+      - type: bind
+        source: ./backend
+        target: /backend
+
   swagger-ui:
     image: swaggerapi/swagger-ui
     ports:
