@@ -37,3 +37,6 @@ yarn-error.log*
 
 # auto generate directory
 api/
+
+# pnpm-store
+.pnpm-store/

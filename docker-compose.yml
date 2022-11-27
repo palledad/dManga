@@ -17,7 +17,7 @@ services:
       dockerfile: frontend/Dockerfile
     ports:
     - "3000:3000"
-    command: pnpm dev
+    command: bash -c "pnpm install && pnpm dev"
     volumes:
       - type: bind
         source: ./frontend/
