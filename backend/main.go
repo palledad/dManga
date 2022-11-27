@@ -13,11 +13,11 @@ import (
 	"log"
 	"net/http"
 
-	openapi "github.com/palledad/dManga/backend/go"
+	openapi "github.com/palledad/dManga/backend/openapi/go"
 )
 
 func main() {
-	log.Printf("Server started")
+	log.Printf("started server on 0.0.0.0:8080, url: http://localhost:8080")
 
 	DefaultApiService := openapi.NewDefaultApiService()
 	DefaultApiController := openapi.NewDefaultApiController(DefaultApiService)
