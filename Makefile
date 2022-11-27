@@ -3,7 +3,7 @@ SCHEMA_YAML = openapi/openapi.yaml
 BACKEND_GEN_FILE = backend/openapi/go/api.go
 FRONTEND_GEN_FILE = frontend/api/api.ts
 
-.PHONY: openapi-gen app swagger-ui
+.PHONY: openapi-gen app swagger-ui format-fe
 
 app: openapi-gen
 	docker compose up --build backend frontend
@@ -11,6 +11,9 @@ app: openapi-gen
 ### frontned ###
 frontend-server: frontend-api-interface
 	docker compose up frontend
+
+format-fe:
+	docker compose run frontend pnpm format
 
 ### backend ###
 backend-server: backend-api-interface
