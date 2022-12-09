@@ -9,14 +9,14 @@ app: openapi-gen
 	docker compose up --build backend frontend
 
 ### frontned ###
-frontend-server: frontend-api-interface
+frontend-server: $(FRONTEND_GEN_FILE)
 	docker compose up frontend
 
 format-fe:
 	docker compose run frontend pnpm format
 
 ### backend ###
-backend-server: backend-api-interface
+backend-server: $(BACKEND_GEN_FILE)
 	docker compose up backend
 
 ### openapi-generator ###

@@ -1,37 +1,50 @@
 version: '3'
 services:
   db:
-    image: mysql:8.0.29
-    platform: linux/amd64
+    image: postgres:14.4-alpine3.16
     environment:
-      MYSQL_DATABASE: 'knowtfolio-db'
-      MYSQL_ROOT_PASSWORD: 'password'
-      MYSQL_ROOT_HOST: '%'
-      TZ: 'Asia/Tokyo'
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: d-manga
     ports:
-      - "3306:3306"
+      - "5432:5432"
 
   frontend:
-    build:
-      context: .
-      dockerfile: frontend/Dockerfile
+    build: frontend
     ports:
-    - "3000:3000"
+      - "3000:3000"
     command: bash -c "pnpm install && pnpm dev"
     volumes:
       - type: bind
         source: ./frontend/
         target: /frontend/
 
+  migrate:
+    build:
+      context: backend
+      dockerfile: migration.Dockerfile
+    command: bash -c "
+      /scripts/wait-for-it.sh db:5432 --timeout=60 --strict &&
+      migrate -database postgres://root:password@db:5432/d-manga?sslmode=disable -path=/migrations/ up"
+    volumes:
+      - type: bind
+        source: ./backend/migrations
+        target: /migrations/
+    depends_on:
+      - db
+
   backend:
     build: backend
     ports:
       - "8080:8080"
-    command: go run main.go
+    command: bash -c " /scripts/wait-for-it.sh db:5432 --timeout=60 --strict && go run main.go"
     volumes:
       - type: bind
         source: ./backend
         target: /backend
+    depends_on:
+      - db
+      - migrate
 
   swagger-ui:
     image: swaggerapi/swagger-ui
