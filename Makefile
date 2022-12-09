@@ -26,7 +26,7 @@ $(FRONTEND_GEN_FILE): $(SCHEMA_YAML)
 	docker compose run openapi-generator generate -g typescript-axios -i home/openapi.yaml -o home/frontend/api
 
 $(BACKEND_GEN_FILE): $(SCHEMA_YAML)
-	docker compose run openapi-generator generate -g go-server --additional-properties=outputAsLibrary=true -i home/openapi.yaml -o home/backend/openapi
+	docker compose run openapi-generator generate -g go-server --additional-properties=outputAsLibrary=true,onlyInterfaces=true -i home/openapi.yaml -o home/backend/openapi
 	docker compose run backend goimports -w ./
 
 ### swagger ###
