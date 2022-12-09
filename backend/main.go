@@ -11,18 +11,16 @@ package main
 
 import (
 	"log"
-	"net/http"
-
-	openapi "github.com/palledad/dManga/backend/openapi/go"
 )
 
 func main() {
 	log.Printf("started server on 0.0.0.0:8080, url: http://localhost:8080")
 
-	DefaultApiService := openapi.NewDefaultApiService()
-	DefaultApiController := openapi.NewDefaultApiController(DefaultApiService)
+	// TODO: DefaultApiServiceを実装する
+	// DefaultApiService := openapi.NewDefaultApiService()
+	// DefaultApiController := openapi.NewDefaultApiController(DefaultApiService)
 
-	router := openapi.NewRouter(DefaultApiController)
+	// router := openapi.NewRouter(DefaultApiController)
 
-	log.Fatal(http.ListenAndServe(":8080", router))
+	// log.Fatal(http.ListenAndServe(":8080", router))
 }
