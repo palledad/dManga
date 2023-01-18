@@ -11,16 +11,20 @@ package main
 
 import (
 	"log"
+	"net/http"
+
+	openapi "github.com/palledad/dManga/backend/openapi/gen"
+	service "github.com/palledad/dManga/backend/services"
 )
 
 func main() {
 	log.Printf("started server on 0.0.0.0:8080, url: http://localhost:8080")
 
 	// TODO: DefaultApiServiceを実装する
-	// DefaultApiService := openapi.NewDefaultApiService()
-	// DefaultApiController := openapi.NewDefaultApiController(DefaultApiService)
+	DefaultApiService := service.NewApiService()
+	DefaultApiController := openapi.NewDefaultApiController(DefaultApiService)
 
-	// router := openapi.NewRouter(DefaultApiController)
+	router := openapi.NewRouter(DefaultApiController, DefaultApiController)
 
-	// log.Fatal(http.ListenAndServe(":8080", router))
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
