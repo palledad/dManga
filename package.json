@@ -1,0 +1,23 @@
+{
+  "name": "dmanga",
+  "version": "1.0.0",
+  "description": "## Usage start application (backend and frontend server) ``` make app ```",
+  "main": "index.js",
+  "devDependencies": {
+    "husky": "8.0.3"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "pnpm --filter @dmanga/frontend lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/palledad/dManga.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/palledad/dManga/issues"
+  }
+}
