@@ -1,0 +1,5 @@
+package: router
+generate:
+  gin-server: true
+  models: true
+output: ./backend/router/openapi.go
