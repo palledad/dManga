@@ -1,42 +1,30 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: Sample API
+  title: dManga API
   description: >-
-    A sample API that uses a sample-site as an example to demonstrate features in
-    the OpenAPI 3.0 specification
+    API schema of backend server for dManga
 servers:
   - url: 'http://localhost:8080'
 paths:
-  /users:
+  /users/{wallet_address}:
     get:
       description: >
-        Returns all users
-      operationId: findUsers
+        Return a user
+      operationId: findUser
       parameters:
-        - name: tags
-          in: query
-          description: tags to filter by
-          required: false
-          style: form
+        - name: wallet_address
+          in: path
+          description: wallet_address of user to find
+          required: true
           schema:
-            type: array
-            items:
-              type: string
-        - name: limit
-          in: query
-          description: maximum number of results to return
-          required: false
-          schema:
-            type: integer
-            format: int32
+            type: string
       responses:
         '200':
           description: user response
           content:
             application/json:
               schema:
-                type: array
                 items:
                   $ref: '#/components/schemas/User'
         default:
@@ -45,27 +33,66 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+    put:
+      description: >
+        Create or update a user
+      operationId: putUser
+      parameters:
+        - name: wallet_address
+          in: path
+          description: wallet_address of user to find
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: user response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    delete:
+      description: >
+        Delete a user
+      operationId: deleteUser
+      parameters:
+        - name: wallet_address
+          in: path
+          description: wallet_address of user to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: user response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      
 components:
   schemas:
     User:
       type: "object"
       required:
-        - "name"
+        - "wallet_address"
       properties:
-        id:
-          type: "integer"
-          format: "int64"
-          example: 100
+        wallet_address:
+          type: "string"
+          example: "0xc886E08423C65b2B28AAD7CCF2b87F973C915736"
         name:
           type: "string"
           example: "Taro"
-        status:
+        picture:
           type: "string"
-          description: "user status"
-          enum:
-            - "pending"
-            - "active"
-            - "inactive"
+          example: "https://theme.zdassets.com/theme_assets/2313093/fe875eef30ee9649f253e8188f3438bb3be27e96.png"
+        biography:
+          type: "string"
+          example: "こんにちは、よろしくおねがいします。"
+        email:
+          type: "string"
+          example: "sample@test.com"
+        
     Error:
       type: "object"
       properties:
