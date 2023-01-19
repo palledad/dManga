@@ -21,7 +21,7 @@ backend-server: $(BACKEND_GEN_FILE)
 	docker compose up backend
 
 backend-lint:
-	docker compose run backend golangci-lint run ./main.go
+	docker compose run backend golangci-lint run ./...
 
 ### openapi-generator ###
 openapi-gen: $(FRONTEND_GEN_FILE) $(BACKEND_GEN_FILE)
