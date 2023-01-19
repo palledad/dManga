@@ -1,5 +1,6 @@
-package: router
+package: controller
 generate:
   gin-server: true
   models: true
-output: ./backend/router/openapi.go
+  embedded-spec: true
+output: /backend/internal/gateways/controller/openapi.gen.go

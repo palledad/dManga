@@ -27,6 +27,14 @@ paths:
               schema:
                 items:
                   $ref: '#/components/schemas/User'
+        '404':
+          description: user not found
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/User'
+
         default:
           description: unexpected error
           content:
@@ -44,6 +52,26 @@ paths:
           required: true
           schema:
             type: string
+      requestBody:
+        description: user info to register
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - "name"
+              property:
+                name:
+                  type: "string"
+                  example: "Taro"
+                picture:
+                  type: "string"
+                  example: "https://theme.zdassets.com/theme_assets/2313093/fe875eef30ee9649f253e8188f3438bb3be27e96.png"
+                biography:
+                  type: "string"
+                  example: "こんにちは、よろしくおねがいします。"
+
       responses:
         '200':
           description: user response
@@ -89,9 +117,6 @@ components:
         biography:
           type: "string"
           example: "こんにちは、よろしくおねがいします。"
-        email:
-          type: "string"
-          example: "sample@test.com"
         
     Error:
       type: "object"

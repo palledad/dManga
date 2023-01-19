@@ -11,6 +11,9 @@ RUN go install golang.org/x/tools/cmd/goimports@latest
 RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.50.1
 RUN golangci-lint --version
 
+# install oapi-codegen
+RUN go install github.com/deepmap/oapi-codegen/cmd/oapi-codegen@latest
+
 RUN mkdir /scripts \
     && wget 'https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh' -P /scripts  \
     && chmod 755 /scripts/wait-for-it.sh
