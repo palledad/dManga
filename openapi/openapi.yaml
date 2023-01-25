@@ -58,19 +58,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              required:
-                - "name"
-              property:
-                name:
-                  type: "string"
-                  example: "Taro"
-                picture:
-                  type: "string"
-                  example: "https://theme.zdassets.com/theme_assets/2313093/fe875eef30ee9649f253e8188f3438bb3be27e96.png"
-                biography:
-                  type: "string"
-                  example: "こんにちは、よろしくおねがいします。"
+              $ref: '#/components/schemas/PutUserEntry'
 
       responses:
         '200':
@@ -100,6 +88,18 @@ paths:
       
 components:
   schemas:
+    PutUserEntry:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+          example: "Taro"
+        picture:
+          type: "string"
+          example: "https://theme.zdassets.com/theme_assets/2313093/fe875eef30ee9649f253e8188f3438bb3be27e96.png"
+        biography:
+          type: "string"
+          example: "こんにちは、よろしくおねがいします。"
     User:
       type: "object"
       required:
