@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"database/sql"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -34,9 +35,9 @@ func (r Handler) PutUser(c *gin.Context, walletAddress string) {
 
 	r.repository.CreateUser(&repository.User{
 		WalletAddress: walletAddress,
-		Biography:     safeStringDeref(user.Biography),
-		Name:          safeStringDeref(user.Name),
-		IconUrl:       safeStringDeref(user.Biography),
+		Biography:     sql.NullString{String: safeStringDeref(user.Biography)},
+		Name:          sql.NullString{String: safeStringDeref(user.Name)},
+		IconUrl:       sql.NullString{String: safeStringDeref(user.Biography)},
 	})
 
 	c.JSON(http.StatusOK, User{

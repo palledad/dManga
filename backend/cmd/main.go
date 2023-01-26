@@ -30,10 +30,10 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Failed to connect with DB: %v", err)
 		os.Exit(1)
 	}
-
-	tmp, _ := db.DB()
-
-	tmp.Ping()
+	defer func() {
+		sqlDB, _ := db.DB()
+		_ = sqlDB.Close()
+	}()
 
 	r.Use(middleware.OapiRequestValidator(swagger))
 

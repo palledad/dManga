@@ -1,12 +1,16 @@
 package repository
 
-import "gorm.io/gorm"
+import (
+	"database/sql"
+
+	"gorm.io/gorm"
+)
 
 type User struct {
-	WalletAddress string `gorm:"primarykey"`
-	Name          string `gorm:"unique"`
-	IconUrl       string
-	Biography     string
+	WalletAddress string         `gorm:"primarykey"`
+	Name          sql.NullString `gorm:"unique"`
+	IconUrl       sql.NullString
+	Biography     sql.NullString
 }
 
 type Repository struct {
