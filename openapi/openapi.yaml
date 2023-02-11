@@ -85,6 +85,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+  /image_links:
+    get:
+      description: >
+        Put images to storage
+      operationId: getImageLink
+      responses:
+        '200':
+          description: image link
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImageLink"
       
 components:
   schemas:
@@ -117,6 +129,15 @@ components:
         biography:
           type: "string"
           example: "こんにちは、よろしくおねがいします。"
+    
+    ImageLink:
+      type: "object"
+      required:
+        - "link"
+      properties:
+        link:
+          type: "string"
+          example: "https://sample.com"
         
     Error:
       type: "object"

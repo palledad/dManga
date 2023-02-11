@@ -3,4 +3,4 @@ generate:
   gin-server: true
   models: true
   embedded-spec: true
-output: /backend/internal/gateways/controller/openapi.gen.go
+output: /backend/internal/controller/openapi.gen.go
