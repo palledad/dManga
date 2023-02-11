@@ -6,12 +6,14 @@ import (
 )
 
 type Handler struct {
-	services *services.UsersService
+	userService      *services.UsersService
+	imageLinkService *services.ImageLinksService
 }
 
-func NewRouter(g *gin.Engine, services *services.UsersService) {
+func NewRouter(g *gin.Engine, userService *services.UsersService, imageLinkService *services.ImageLinksService) {
 	handler := &Handler{
-		services: services,
+		userService:      userService,
+		imageLinkService: imageLinkService,
 	}
 	RegisterHandlers(g, handler)
 }

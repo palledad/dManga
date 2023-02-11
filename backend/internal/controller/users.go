@@ -17,7 +17,7 @@ func safeStringDeref(s *string) string {
 }
 
 func (h Handler) DeleteUser(c *gin.Context, walletAddress string) {
-	user, err := h.services.DeleteUser(walletAddress)
+	user, err := h.userService.DeleteUser(walletAddress)
 	if err != nil {
 		c.JSON(http.StatusNotFound, err.Error())
 	}
@@ -25,7 +25,7 @@ func (h Handler) DeleteUser(c *gin.Context, walletAddress string) {
 }
 
 func (h Handler) FindUser(c *gin.Context, walletAddress string) {
-	user, err := h.services.ReadUser(walletAddress)
+	user, err := h.userService.ReadUser(walletAddress)
 	if err != nil {
 		c.JSON(http.StatusNotFound, err.Error())
 	}
@@ -40,7 +40,7 @@ func (h Handler) PutUser(c *gin.Context, walletAddress string) {
 		return
 	}
 
-	h.services.CreateUser(&models.User{
+	h.userService.CreateUser(&models.User{
 		WalletAddress: walletAddress,
 		Biography:     sql.NullString{String: safeStringDeref(user.Biography)},
 		Name:          sql.NullString{String: safeStringDeref(user.Name)},
