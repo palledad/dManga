@@ -6,8 +6,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/palledad/dManga/backend/configs"
-	"github.com/palledad/dManga/backend/internal/gateways/controller"
-	"github.com/palledad/dManga/backend/internal/gateways/repository"
+	"github.com/palledad/dManga/backend/internal/controller"
+	"github.com/palledad/dManga/backend/internal/models"
+	"github.com/palledad/dManga/backend/internal/services"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
@@ -36,8 +37,8 @@ func main() {
 	}()
 
 	r.Use(middleware.OapiRequestValidator(swagger))
-
-	repository := repository.NewRepository(db)
-	controller.NewRouter(r, repository)
+	userModel := models.NewUserModel()
+	userService := services.NewUsersService(db, userModel)
+	controller.NewRouter(r, userService)
 	_ = r.Run()
 }

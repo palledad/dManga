@@ -1,7 +1,7 @@
 SCHEMA_YAML = openapi/openapi.yaml
 OAPI_CONFIG_YAML = openapi/gen.yaml
 
-BACKEND_GEN_FILE = backend/internal/gateways/controller/openapi.gen.go
+BACKEND_GEN_FILE = backend/internal/controller/openapi.gen.go
 FRONTEND_GEN_FILE = frontend/api/api.ts
 
 .PHONY: openapi-gen app swagger-ui format-fe
