@@ -38,6 +38,8 @@ services:
     ports:
       - "8080:8080"
     command: bash -c " /scripts/wait-for-it.sh db:5432 --timeout=60 --strict && go run cmd/main.go"
+    env_file:
+      - ./backend/.env
     volumes:
       - type: bind
         source: ./backend
