@@ -19,7 +19,7 @@ func NewUserModel() *UserModel {
 	return &UserModel{}
 }
 
-func (m UserModel) ReadUser(db *gorm.DB, walletAddress string) (*User, error) {
+func (m *UserModel) ReadUser(db *gorm.DB, walletAddress string) (*User, error) {
 	target := &User{WalletAddress: walletAddress}
 	if result := db.First(&target); result.Error != nil {
 		return nil, result.Error
@@ -27,14 +27,14 @@ func (m UserModel) ReadUser(db *gorm.DB, walletAddress string) (*User, error) {
 	return target, nil
 }
 
-func (m UserModel) CreateUser(db *gorm.DB, user *User) error {
+func (m *UserModel) CreateUser(db *gorm.DB, user *User) error {
 	if result := db.Create(user); result.Error != nil {
 		return result.Error
 	}
 	return nil
 }
 
-func (m UserModel) DeleteUser(db *gorm.DB, walletAddress string) (*User, error) {
+func (m *UserModel) DeleteUser(db *gorm.DB, walletAddress string) (*User, error) {
 	target := &User{WalletAddress: walletAddress}
 	if result := db.First(&target); result.Error != nil {
 		return nil, result.Error

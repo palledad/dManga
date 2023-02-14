@@ -17,14 +17,14 @@ func NewUsersService(db *gorm.DB, userModel *models.UserModel) *UsersService {
 	}
 }
 
-func (s UsersService) CreateUser(user *models.User) (*models.User, error) {
+func (s *UsersService) CreateUser(user *models.User) (*models.User, error) {
 	if err := s.userModel.CreateUser(s.db, user); err != nil {
 		return nil, err
 	}
 	return user, nil
 }
 
-func (s UsersService) ReadUser(walletAddress string) (*models.User, error) {
+func (s *UsersService) ReadUser(walletAddress string) (*models.User, error) {
 	user, err := s.userModel.ReadUser(s.db, walletAddress)
 	if err != nil {
 		return nil, err
@@ -32,7 +32,7 @@ func (s UsersService) ReadUser(walletAddress string) (*models.User, error) {
 	return user, nil
 }
 
-func (s UsersService) DeleteUser(walletAddress string) (*models.User, error) {
+func (s *UsersService) DeleteUser(walletAddress string) (*models.User, error) {
 	user, err := s.userModel.DeleteUser(s.db, walletAddress)
 	if err != nil {
 		return nil, err
