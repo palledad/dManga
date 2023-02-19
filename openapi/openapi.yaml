@@ -97,6 +97,79 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ImageLink"
+                
+  /articles:
+    post:
+      description: post new article
+      operationId: postArticle
+      requestBody:
+        description: user info to register
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostArticleEntry'
+      responses:
+        '200':
+          description: posted article response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+                
+  /articles/{article_id}:
+    get:
+      description: get an article for article_id
+      operationId: getArticle
+      responses:
+        '200':
+          description: article response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+      parameters:
+        - name: article_id
+          in: path
+          description: id of article to get
+          required: true
+          schema:
+            type: string
+    patch:
+      description: update an article info for articleId
+      operationId: updateArticle
+      responses:
+        '200':
+          description: updated article response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+      parameters:
+        - name: article_id
+          in: path
+          description: id of article to update
+          required: true
+          schema:
+            type: string
+            
+    delete:
+      description: delete an article for articleId
+      operationId: deleteArticle
+      parameters:
+        - name: article_id
+          in: path
+          description: id of article to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successfully deleted an article
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
       
 components:
   schemas:
@@ -112,6 +185,23 @@ components:
         biography:
           type: "string"
           example: "こんにちは、よろしくおねがいします。"
+    
+    PostArticleEntry:
+      type: "object"
+      required:
+        - title
+        - content
+        - author_address
+      properties:
+        title:
+          type: "string"
+        content:
+          type: "string"
+        author_address:
+          type: "string"
+        alias:
+          type: "string"
+    
     User:
       type: "object"
       required:
@@ -129,6 +219,31 @@ components:
         biography:
           type: "string"
           example: "こんにちは、よろしくおねがいします。"
+          
+    Article:
+      type: "object"
+      required:
+        - id
+        - title
+        - content
+        - author_address
+      properties:
+        id:
+          type: "string"
+        title:
+          type: "string"
+        content:
+          type: "string"
+        author_address:
+          type: "string"
+          example: "0xc886E08423C65b2B28AAD7CCF2b87F973C915736"
+        alias:
+          type: "string"
+          example: "polygon-create-wallet"
+        created_at:
+          type: "number"
+        updated_at:
+          type: "number"
     
     ImageLink:
       type: "object"
