@@ -19,11 +19,9 @@ const MyPage = () => {
       <Header></Header>
       <Box height={'20em'} background={'gray.100'}></Box>
       <Segment>
-        <Grid templateColumns='repeat(5, 1fr)' templateRows='repeat(2, 1fr)'>
-          <GridItem colSpan={2}>ユーザー名</GridItem>
-          <GridItem colSpan={3}>wallet address</GridItem>
-          <GridItem colSpan={2}>自己紹介文</GridItem>
-        </Grid>
+        <Box>ユーザー名</Box>
+        <Box>wallet address</Box>
+        <Box>自己紹介文</Box>
       </Segment>
       <Segment>
         <Tabs variant='enclosed'>
