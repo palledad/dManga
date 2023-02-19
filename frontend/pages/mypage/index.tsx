@@ -34,40 +34,54 @@ const MyPage = () => {
           <TabPanels>
             <TabPanel>
               <Input placeholder='検索' background={'gray.100'} />
-              <Segment>
-                記事サムネイル画像
-                <br />
-                タイトル
-                <br />
-                作者
-                <br />
-                作成日時
-                <br />
-                更新日時
-              </Segment>
+              <Grid templateColumns='repeat(3, 1fr)'>
+                <GridItem colSpan={1}>
+                  <Segment>
+                    記事サムネイル画像
+                    <br />
+                    タイトル
+                    <br />
+                    作者
+                    <br />
+                    作成日時
+                    <br />
+                    更新日時
+                  </Segment>
+                </GridItem>
+              </Grid>
             </TabPanel>
             <TabPanel>
               <Input placeholder='検索' background={'gray.100'} />
-              <Segment>
-                タイトル
-                <br />
-                作成日時
-                <br />
-                更新日時
-                <br />
-                <Button>編集</Button>
-                <Button>削除</Button>
-              </Segment>
+              <Grid templateColumns='repeat(3, 1fr)'>
+                <GridItem colSpan={1}>
+                  <Segment>
+                    タイトル
+                    <br />
+                    作成日時
+                    <br />
+                    更新日時
+                    <br />
+                    <Box display='flex' justifyContent='center' gap={2}>
+                      <Button>編集</Button>
+                      <Button>削除</Button>
+                    </Box>
+                  </Segment>
+                </GridItem>
+              </Grid>
             </TabPanel>
             <TabPanel>
               <Input placeholder='検索' background={'gray.100'} />
-              <Segment>
-                記事URL
-                <br />
-                記事タイトル
-                <br />
-                トークンID
-              </Segment>
+              <Grid templateColumns='repeat(3, 1fr)'>
+                <GridItem colSpan={1}>
+                  <Segment>
+                    記事URL
+                    <br />
+                    記事タイトル
+                    <br />
+                    トークンID
+                  </Segment>
+                </GridItem>
+              </Grid>
             </TabPanel>
           </TabPanels>
         </Tabs>
