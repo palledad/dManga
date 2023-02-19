@@ -50,8 +50,10 @@ func main() {
 
 	r.Use(middleware.OapiRequestValidator(swagger))
 	userModel := models.NewUserModel()
+	articleModel := models.NewArticleModel()
 	userService := services.NewUsersService(db, userModel)
+	articlesService := services.NewArticlesService(db, articleModel)
 	imageLinkService := services.NewImageLinksService(s3Client)
-	controller.NewRouter(r, userService, imageLinkService)
+	controller.NewRouter(r, userService, imageLinkService, articlesService)
 	_ = r.Run()
 }
