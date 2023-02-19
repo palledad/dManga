@@ -9,9 +9,11 @@ import {
   TabPanels,
   Tab,
   TabPanel,
-  Button,
   Input,
 } from '@chakra-ui/react'
+import PurchasedArticleCard from '../../components/Card/PurchasedArticleCard'
+import MyArticleCard from '../../components/Card/MyArticleCard'
+import NFTCard from '../../components/Card/NFTCard'
 
 const MyPage = () => {
   return (
@@ -36,17 +38,7 @@ const MyPage = () => {
               <Input placeholder='検索' background={'gray.100'} />
               <Grid templateColumns='repeat(3, 1fr)'>
                 <GridItem colSpan={1}>
-                  <Segment>
-                    記事サムネイル画像
-                    <br />
-                    タイトル
-                    <br />
-                    作者
-                    <br />
-                    作成日時
-                    <br />
-                    更新日時
-                  </Segment>
+                  <PurchasedArticleCard />
                 </GridItem>
               </Grid>
             </TabPanel>
@@ -54,18 +46,7 @@ const MyPage = () => {
               <Input placeholder='検索' background={'gray.100'} />
               <Grid templateColumns='repeat(3, 1fr)'>
                 <GridItem colSpan={1}>
-                  <Segment>
-                    タイトル
-                    <br />
-                    作成日時
-                    <br />
-                    更新日時
-                    <br />
-                    <Box display='flex' justifyContent='center' gap={2}>
-                      <Button>編集</Button>
-                      <Button>削除</Button>
-                    </Box>
-                  </Segment>
+                  <MyArticleCard />
                 </GridItem>
               </Grid>
             </TabPanel>
@@ -73,13 +54,7 @@ const MyPage = () => {
               <Input placeholder='検索' background={'gray.100'} />
               <Grid templateColumns='repeat(3, 1fr)'>
                 <GridItem colSpan={1}>
-                  <Segment>
-                    記事URL
-                    <br />
-                    記事タイトル
-                    <br />
-                    トークンID
-                  </Segment>
+                  <NFTCard />
                 </GridItem>
               </Grid>
             </TabPanel>
