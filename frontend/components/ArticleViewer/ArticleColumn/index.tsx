@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import Segment from '../Segment'
+import Segment from '../../Segment'
 
 const ArticleColumn = () => {
   return (

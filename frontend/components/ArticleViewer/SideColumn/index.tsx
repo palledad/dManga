@@ -1,4 +1,4 @@
-import Segment from '../Segment'
+import Segment from '../../Segment'
 import { Box, Button } from '@chakra-ui/react'
 
 const SideColumn = () => {
