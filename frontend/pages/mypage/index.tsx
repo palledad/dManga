@@ -1,17 +1,9 @@
 import Segment from '../../components/Segment'
 import Header from '../../components/Header'
-import {
-  Box,
-  Grid,
-  GridItem,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  Button,
-  Input,
-} from '@chakra-ui/react'
+import { Box, Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import MyArticleCardTab from '../../components/MyPageTabs/MyArticleCardTab'
+import NFTCardTab from '../../components/MyPageTabs/NFTCardTab'
+import PurchasedArticleTab from '../../components/MyPageTabs/PurchasedArticleTab'
 
 const MyPage = () => {
   return (
@@ -33,55 +25,13 @@ const MyPage = () => {
 
           <TabPanels>
             <TabPanel>
-              <Input placeholder='検索' background={'gray.100'} />
-              <Grid templateColumns='repeat(3, 1fr)'>
-                <GridItem colSpan={1}>
-                  <Segment>
-                    記事サムネイル画像
-                    <br />
-                    タイトル
-                    <br />
-                    作者
-                    <br />
-                    作成日時
-                    <br />
-                    更新日時
-                  </Segment>
-                </GridItem>
-              </Grid>
+              <PurchasedArticleTab />
             </TabPanel>
             <TabPanel>
-              <Input placeholder='検索' background={'gray.100'} />
-              <Grid templateColumns='repeat(3, 1fr)'>
-                <GridItem colSpan={1}>
-                  <Segment>
-                    タイトル
-                    <br />
-                    作成日時
-                    <br />
-                    更新日時
-                    <br />
-                    <Box display='flex' justifyContent='center' gap={2}>
-                      <Button>編集</Button>
-                      <Button>削除</Button>
-                    </Box>
-                  </Segment>
-                </GridItem>
-              </Grid>
+              <MyArticleCardTab />
             </TabPanel>
             <TabPanel>
-              <Input placeholder='検索' background={'gray.100'} />
-              <Grid templateColumns='repeat(3, 1fr)'>
-                <GridItem colSpan={1}>
-                  <Segment>
-                    記事URL
-                    <br />
-                    記事タイトル
-                    <br />
-                    トークンID
-                  </Segment>
-                </GridItem>
-              </Grid>
+              <NFTCardTab />
             </TabPanel>
           </TabPanels>
         </Tabs>
