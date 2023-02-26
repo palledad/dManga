@@ -1,5 +1,6 @@
 import { Grid, GridItem, Input } from '@chakra-ui/react'
 import NFTCard from '../../Card/NFTCard'
+import Link from 'next/link'
 
 const NFTCardTab = () => {
   return (
@@ -8,7 +9,9 @@ const NFTCardTab = () => {
       <Grid templateColumns='repeat(3, 1fr)'>
         {[...Array(10)].map((x) => (
           <GridItem key={x} colSpan={1}>
-            <NFTCard />
+            <Link href='articledetail'>
+              <NFTCard />
+            </Link>
           </GridItem>
         ))}
       </Grid>

@@ -2,6 +2,7 @@ import Segment from '../../components/Segment'
 import Header from '../../components/Header'
 import { Grid, GridItem, Input } from '@chakra-ui/react'
 import SearchArticleCard from '../../components/Card/SearchArticleCard'
+import Link from 'next/link'
 
 const MyPage = () => {
   return (
@@ -12,7 +13,9 @@ const MyPage = () => {
         <Grid templateColumns='repeat(3, 1fr)'>
           {[...Array(10)].map((x) => (
             <GridItem key={x} colSpan={1}>
-              <SearchArticleCard key={x} />
+              <Link href='articleviewer'>
+                <SearchArticleCard key={x} />
+              </Link>
             </GridItem>
           ))}
         </Grid>

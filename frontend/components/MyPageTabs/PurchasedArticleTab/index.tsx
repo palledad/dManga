@@ -1,5 +1,6 @@
 import { Grid, GridItem, Input } from '@chakra-ui/react'
 import PurchasedArticleCard from '../../Card/PurchasedArticleCard'
+import Link from 'next/link'
 
 const PurchasedArticleTab = () => {
   return (
@@ -8,7 +9,9 @@ const PurchasedArticleTab = () => {
       <Grid templateColumns='repeat(3, 1fr)'>
         {[...Array(10)].map((x) => (
           <GridItem key={x} colSpan={1}>
-            <PurchasedArticleCard key={x} />
+            <Link href='articleviewer'>
+              <PurchasedArticleCard key={x} />
+            </Link>
           </GridItem>
         ))}
       </Grid>
