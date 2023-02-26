@@ -1,19 +1,9 @@
 import Segment from '../../components/Segment'
 import Header from '../../components/Header'
-import {
-  Box,
-  Grid,
-  GridItem,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  Input,
-} from '@chakra-ui/react'
-import PurchasedArticleCard from '../../components/Card/PurchasedArticleCard'
-import MyArticleCard from '../../components/Card/MyArticleCard'
-import NFTCard from '../../components/Card/NFTCard'
+import { Box, Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import MyArticleCardTab from '../../components/MyPageTabs/MyArticleCardTab'
+import NFTCardTab from '../../components/MyPageTabs/NFTCardTab'
+import PurchasedArticleTab from '../../components/MyPageTabs/PurchasedArticleTab'
 
 const MyPage = () => {
   return (
@@ -35,28 +25,13 @@ const MyPage = () => {
 
           <TabPanels>
             <TabPanel>
-              <Input placeholder='検索' background={'gray.100'} />
-              <Grid templateColumns='repeat(3, 1fr)'>
-                <GridItem colSpan={1}>
-                  <PurchasedArticleCard />
-                </GridItem>
-              </Grid>
+              <PurchasedArticleTab />
             </TabPanel>
             <TabPanel>
-              <Input placeholder='検索' background={'gray.100'} />
-              <Grid templateColumns='repeat(3, 1fr)'>
-                <GridItem colSpan={1}>
-                  <MyArticleCard />
-                </GridItem>
-              </Grid>
+              <MyArticleCardTab />
             </TabPanel>
             <TabPanel>
-              <Input placeholder='検索' background={'gray.100'} />
-              <Grid templateColumns='repeat(3, 1fr)'>
-                <GridItem colSpan={1}>
-                  <NFTCard />
-                </GridItem>
-              </Grid>
+              <NFTCardTab />
             </TabPanel>
           </TabPanels>
         </Tabs>
