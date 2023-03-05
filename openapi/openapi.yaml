@@ -227,6 +227,8 @@ components:
         - title
         - content
         - author_address
+        - created_at
+        - updated_at
       properties:
         id:
           type: "string"
@@ -256,6 +258,10 @@ components:
         
     Error:
       type: "object"
+      required:
+        - code
+        - type
+        - message
       properties:
         code:
           type: "integer"
