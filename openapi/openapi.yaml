@@ -103,7 +103,7 @@ paths:
       description: post new article
       operationId: postArticle
       requestBody:
-        description: user info to register
+        description: article info to create
         required: true
         content:
           application/json:
@@ -138,6 +138,13 @@ paths:
     patch:
       description: update an article info for articleId
       operationId: updateArticle
+      requestBody:
+        description: article info to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostArticleEntry'
       responses:
         '200':
           description: updated article response
