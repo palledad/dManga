@@ -12,7 +12,7 @@ const Header = () => {
         <Link href='/articlesearch'>
           <Button size='sm'>記事検索</Button>
         </Link>
-        <Link href='/createarticle'>
+        <Link href='/editarticle'>
           <Button size='sm'>記事作成</Button>
         </Link>
         <Link href='/mypage'>
