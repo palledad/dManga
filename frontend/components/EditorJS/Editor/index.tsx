@@ -3,15 +3,17 @@ import EditorJS from '@editorjs/editorjs'
 import Tools from '../Tools'
 import { Box } from '@chakra-ui/react'
 
-// @ts-ignore
-const CustomEditor = ({ data, onChange, holder }) => {
-  //initialize editorjs
-  const ref = useRef()
+type Props = {
+  data: any
+  onChange: any
+  holder: any
+}
+
+const CustomEditor: React.FC<Props> = ({ data, onChange, holder }) => {
+  const ref = useRef<EditorJS | null>(null)
 
   useEffect(() => {
-    //initialize editor if we don't have a reference
     if (!ref.current) {
-      // @ts-ignore
       ref.current = new EditorJS({
         holder: holder,
         tools: Tools,
@@ -26,9 +28,7 @@ const CustomEditor = ({ data, onChange, holder }) => {
     }
     //add a return function handle cleanup
     return () => {
-      // @ts-ignore
       if (ref.current && ref.current.destroy) {
-        // @ts-ignore
         ref.current.destroy()
       }
     }
