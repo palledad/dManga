@@ -2,13 +2,13 @@ import Header from '../../components/Header'
 import Segment from '../../components/Segment'
 import { Box } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 const CustomEditor = dynamic(() => import('../../components/EditorJS/Editor'), {
   ssr: false,
 })
 
 const EditArticle = () => {
-  const [data, setData] = useState()
+  const [data, setData] = useState<any>()
 
   return (
     <>
