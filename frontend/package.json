@@ -12,6 +12,7 @@
     "format": "prettier --write '**/*.ts' '**/*.tsx'"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.17",
     "@chakra-ui/react": "^2.4.9",
     "@editorjs/checklist": "^1.4.0",
     "@editorjs/code": "^2.8.0",

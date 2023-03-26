@@ -1,7 +1,41 @@
 import { Box } from '@chakra-ui/react'
 import Segment from '../../Segment'
+import Paragraph from '../ArticleElement/Paragraph'
+import CodeBlock from '../ArticleElement/CodeBlock'
+import HeaderElement from '../ArticleElement/HeaderElement'
+import Delimiter from '../ArticleElement/Delimiter'
+import LinkTool from '../ArticleElement/LinkTool'
+import List from '../ArticleElement/ListElement'
+import Quote from '../ArticleElement/Quote'
+import React, { useEffect } from 'react'
 
-const ArticleColumn = () => {
+type Props = {
+  articleJson: { [index: string]: any }
+}
+const ArticleColumn: React.FC<Props> = ({ articleJson }) => {
+  const elementGenerator = (articleDic: any) => {
+    switch (articleDic.type) {
+      case 'paragraph':
+        return Paragraph(articleDic)
+      case 'code':
+        return CodeBlock(articleDic)
+      case 'header':
+        return HeaderElement(articleDic)
+      case 'delimiter':
+        return Delimiter()
+      case 'linktool':
+        return LinkTool(articleDic)
+      case 'list':
+        return List(articleDic)
+      case 'quote':
+        return Quote(articleDic)
+      default:
+        return <p>未対応</p>
+    }
+  }
+  useEffect(() => {
+    articleJson.blocks.map((dic: any) => elementGenerator(dic))
+  }, [])
   return (
     <>
       <Box height={'20em'} background={'gray.100'}>
@@ -14,7 +48,7 @@ const ArticleColumn = () => {
         <Box>タグ一覧</Box>
       </Segment>
       <Segment>
-        <Box>記事本文</Box>
+        <Box>{articleJson.blocks.map((dic: any) => elementGenerator(dic))}</Box>
       </Segment>
     </>
   )

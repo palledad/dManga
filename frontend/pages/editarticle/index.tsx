@@ -10,6 +10,10 @@ const CustomEditor = dynamic(() => import('../../components/EditorJS/Editor'), {
 const EditArticle = () => {
   const [data, setData] = useState<any>()
 
+  useEffect(() => {
+    console.log(JSON.stringify(data))
+  })
+
   return (
     <>
       <Header></Header>
