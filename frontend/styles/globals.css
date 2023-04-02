@@ -6,6 +6,26 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+.ce-block__content h1 {
+  display: block !important;
+  font-size: 2rem !important;
+  margin-block-start: 0.67rem !important;
+  margin-block-end: 0.67rem !important;
+  margin-inline-start: 0 !important;
+  margin-inline-end: 0 !important;
+  font-weight: bold !important;
+}
+
+.ce-block__content h2 {
+  display: block !important;
+  font-size: 1.5rem !important;
+  margin-block-start: 0.83rem !important;
+  margin-block-end: 0.83rem !important;
+  margin-inline-start: 0 !important;
+  margin-inline-end: 0 !important;
+  font-weight: bold !important;
+}
+
 a {
   color: inherit;
   text-decoration: none;

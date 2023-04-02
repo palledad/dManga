@@ -8,12 +8,20 @@ import (
 	"github.com/palledad/dManga/backend/internal/models"
 )
 
-func safeStringDeref(s *string) string {
+func convertToNullString(s *string) sql.NullString {
 	if s != nil {
-		return *s
+		return sql.NullString{String: *s, Valid: true}
 	}
 
-	return ""
+	return sql.NullString{String: "", Valid: false}
+}
+
+func convertToStringPtr(ns sql.NullString) *string {
+	if ns.Valid {
+		return &ns.String
+	} else {
+		return nil
+	}
 }
 
 func (h Handler) DeleteUser(c *gin.Context, walletAddress string) {
@@ -29,7 +37,14 @@ func (h Handler) FindUser(c *gin.Context, walletAddress string) {
 	if err != nil {
 		c.JSON(http.StatusNotFound, err.Error())
 	}
-	c.JSON(http.StatusOK, user)
+
+	respBody := &User{
+		Biography:     convertToStringPtr(user.Biography),
+		Name:          convertToStringPtr(user.Name),
+		Picture:       convertToStringPtr(user.IconUrl),
+		WalletAddress: user.WalletAddress,
+	}
+	c.JSON(http.StatusOK, respBody)
 }
 
 func (h Handler) PutUser(c *gin.Context, walletAddress string) {
@@ -42,9 +57,9 @@ func (h Handler) PutUser(c *gin.Context, walletAddress string) {
 
 	h.userService.CreateUser(&models.User{
 		WalletAddress: walletAddress,
-		Biography:     sql.NullString{String: safeStringDeref(user.Biography)},
-		Name:          sql.NullString{String: safeStringDeref(user.Name)},
-		IconUrl:       sql.NullString{String: safeStringDeref(user.Biography)},
+		Biography:     convertToNullString(user.Biography),
+		Name:          convertToNullString(user.Name),
+		IconUrl:       convertToNullString(user.Picture),
 	})
 
 	c.JSON(http.StatusOK, User{
