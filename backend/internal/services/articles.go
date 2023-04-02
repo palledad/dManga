@@ -34,16 +34,9 @@ func (a *ArticleService) ReadArticle(alias string) (*models.Article, error) {
 }
 
 func (a *ArticleService) UpdateArticle(articleId uuid.UUID, title string, content string) (*models.Article, error) {
-	tx := a.db.Begin()
-	articleResp, err := a.articleModel.UpdateArticle(tx, articleId, title, content)
-	if err != nil {
-		tx.Rollback()
-		return nil, err
-	}
-	err = tx.Commit().Error
-	if err != nil {
-		tx.Rollback()
-		return nil, err
-	}
-	return articleResp, nil
+	return a.articleModel.UpdateArticle(a.db, articleId, title, content)
+}
+
+func (a *ArticleService) DeleteArticle(articleId uuid.UUID) (*models.Article, error) {
+	return a.articleModel.DeleteArticle(a.db, articleId)
 }

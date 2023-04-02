@@ -108,7 +108,31 @@ func (h *Handler) UpdateArticle(c *gin.Context, articleId string) {
 }
 
 func (h *Handler) DeleteArticle(c *gin.Context, articleId string) {
+	uuid, err := uuid.Parse(articleId)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, &Error{
+			Code:    int32(http.StatusBadRequest),
+			Type:    http.StatusText(http.StatusBadRequest),
+			Message: err.Error(),
+		})
+		return
+	}
+	article, err := h.articlesService.DeleteArticle(uuid)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, &Error{
+			Code:    int32(http.StatusInternalServerError),
+			Type:    http.StatusText(http.StatusInternalServerError),
+			Message: err.Error(),
+		})
+		return
+	}
 	c.JSON(http.StatusOK, &Article{
-		Id: articleId,
+		Id:            article.ID.String(),
+		CreatedAt:     float32(article.CreatedAt.Unix()),
+		UpdatedAt:     float32(article.UpdatedAt.Unix()),
+		AuthorAddress: article.AuthorAddress,
+		Title:         article.Title,
+		Content:       article.Content,
+		Alias:         &article.Alias,
 	})
 }

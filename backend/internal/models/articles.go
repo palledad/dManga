@@ -45,3 +45,12 @@ func (m *ArticleModel) UpdateArticle(db *gorm.DB, articleId uuid.UUID, title str
 	db.First(&target)
 	return target, nil
 }
+
+func (m *ArticleModel) DeleteArticle(db *gorm.DB, articleId uuid.UUID) (*Article, error) {
+	target := &Article{ID: articleId}
+	if result := db.Delete(&target); result.Error != nil {
+		return nil, result.Error
+	}
+	db.Unscoped().Find(&target)
+	return target, nil
+}
