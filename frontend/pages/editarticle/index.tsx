@@ -12,6 +12,11 @@ const EditArticle = () => {
   const [alias, setAlias] = useState('')
   const [title, setTitle] = useState('')
 
+  useEffect(() => {
+    //aliasにランダムな文字列をセット
+    setAlias(Math.random().toString(32).substring(2))
+  }, [])
+
   const postArticle = () => {
     const headers = {
       accept: 'application/json',
