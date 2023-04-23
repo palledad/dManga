@@ -14,12 +14,19 @@ import (
 	"github.com/palledad/dManga/backend/internal/services"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"github.com/joho/godotenv"
 
 	middleware "github.com/deepmap/oapi-codegen/pkg/gin-middleware"
 )
 
 func main() {
 	r := gin.Default()
+
+	err := godotenv.Load(".env")
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error loading .env file")
+		os.Exit(1)
+	}
 
 	// validatorの設定
 	swagger, err := controller.GetSwagger()
