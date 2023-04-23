@@ -8,13 +8,12 @@ import (
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/gin-gonic/gin"
-	"github.com/palledad/dManga/backend/configs"
+	"github.com/joho/godotenv"
 	"github.com/palledad/dManga/backend/internal/controller"
 	"github.com/palledad/dManga/backend/internal/models"
 	"github.com/palledad/dManga/backend/internal/services"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"github.com/joho/godotenv"
 
 	middleware "github.com/deepmap/oapi-codegen/pkg/gin-middleware"
 )
@@ -36,7 +35,8 @@ func main() {
 	}
 
 	// Connect to DB
-	db, err := gorm.Open(postgres.Open(configs.DataSourceName))
+	DataSourceName := os.Getenv("DATA_SOURCE_NAME")
+	db, err := gorm.Open(postgres.Open(DataSourceName))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to connect with DB: %v", err)
 		os.Exit(1)
