@@ -19,5 +19,8 @@ func NewRouter(g *gin.Engine, userService *services.UsersService, imageLinkServi
 		articlesService:  articlesService,
 		tagService:       tagService,
 	}
-	RegisterHandlers(g, handler)
+	RegisterHandlersWithOptions(g, handler, GinServerOptions{
+		BaseURL: "/api",
+	})
+
 }
