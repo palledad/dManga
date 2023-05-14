@@ -177,6 +177,86 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Article'
+  
+  /tags:
+    post:
+      description: post new tag
+      operationId: postTag
+      requestBody:
+        description: tag info to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostTagEntry'
+      responses:
+        '200':
+          description: posted tag response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+                
+  /tags/{tag_id}:
+    get:
+      description: get a tag for tag_id
+      operationId: getTag
+      responses:
+        '200':
+          description: tag response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+      parameters:
+        - name: tag_id
+          in: path
+          description: id of a tag to get
+          required: true
+          schema:
+            type: string
+    patch:
+      description: update a tag info for tag_id
+      operationId: updateTag
+      requestBody:
+        description: tag info to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostTagEntry'
+      responses:
+        '200':
+          description: updated tag response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+      parameters:
+        - name: tag_id
+          in: path
+          description: id of tag to update
+          required: true
+          schema:
+            type: string
+            
+    delete:
+      description: delete an tag for tag_id
+      operationId: deleteTag
+      parameters:
+        - name: tag_id
+          in: path
+          description: id of tag to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successfully deleted the tag
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
       
 components:
   schemas:
@@ -207,6 +287,14 @@ components:
         author_address:
           type: "string"
         alias:
+          type: "string"
+          
+    PostTagEntry:
+      type: "object"
+      required:
+        - name
+      properties:
+        name:
           type: "string"
     
     User:
@@ -249,6 +337,23 @@ components:
         alias:
           type: "string"
           example: "polygon-create-wallet"
+        created_at:
+          type: "number"
+        updated_at:
+          type: "number"
+          
+    Tag:
+      type: "object"
+      required:
+        - id
+        - name
+        - created_at
+        - updated_at
+      properties:
+        id:
+          type: "string"
+        name:
+          type: "string"
         created_at:
           type: "number"
         updated_at:
