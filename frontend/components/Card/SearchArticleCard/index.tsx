@@ -1,16 +1,23 @@
 import Segment from '../../Segment'
 import { Box } from '@chakra-ui/react'
+import { format, fromUnixTime } from 'date-fns'
 
-const SearchArticleCard = () => {
+type SearchArticleCardProps = {
+  title: string
+  author: string
+  createdAt: number
+  updatedAt: number
+}
+const SearchArticleCard = ({ title, author, createdAt, updatedAt }: SearchArticleCardProps) => {
   return (
     <Segment>
       <Box>記事サムネイル画像</Box>
-      <Box>タイトル</Box>
-      <Box>作者</Box>
-      <Box>作成日時</Box>
-      <Box>更新日時</Box>
-      <Box>価格</Box>
-      <Box>販売数</Box>
+      <Box>{title}</Box>
+      <Box>{author}</Box>
+      <Box>{format(fromUnixTime(createdAt), 'yyyy-MM-dd')}</Box>
+      <Box>{format(fromUnixTime(updatedAt), 'yyyy-MM-dd')}</Box>
+      {/*<Box>{price}</Box>*/}
+      {/*<Box>{salesNum}</Box>*/}
     </Segment>
   )
 }

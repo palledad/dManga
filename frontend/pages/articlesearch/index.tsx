@@ -3,43 +3,45 @@ import Header from '../../components/Header'
 import { Grid, GridItem, Input } from '@chakra-ui/react'
 import SearchArticleCard from '../../components/Card/SearchArticleCard'
 import Link from 'next/link'
-import { useEffect } from 'react'
-const MyPage = () => {
-  useEffect(() => {
-    console.log('useEffect')
-    const articleAlias = ['string', '2', '3', 'eeee', 'aaa', 'onvm8flrpr']
+import { GetStaticProps } from 'next'
+import { Article, DefaultApi } from '../../api'
 
-    const headers = {
-      accept: 'application/json',
-    }
+export const getStaticProps: GetStaticProps = async () => {
+  const articleAlias = ['string', '2', '3', 'eeee', 'aaa', 'onvm8flrpr']
 
-    const fetchArticle = async (alias: string) => {
-      await fetch(`http://localhost:3000/api/articles/${alias}`, {
-        method: 'GET',
-        headers: headers,
-      }).then((response) => {
-        if (!response.ok) {
-          console.log('error', response)
-        } else {
-          console.log('ok', response)
-        }
-      })
-    }
+  const promises = articleAlias.map((alias) =>
+    new DefaultApi().getArticle(alias).then((x) => x.data),
+  )
 
-    for (let i = 0; i < articleAlias.length; i++) {
-      fetchArticle(articleAlias[i])
-    }
-  }, [])
+  const ret = await Promise.all<Promise<Article>[]>(promises)
+
+  return {
+    props: {
+      articlesData: ret,
+    },
+  }
+}
+
+type MyPageProps = {
+  articlesData: Article[]
+}
+const MyPage = ({ articlesData }: MyPageProps) => {
   return (
     <>
       <Header></Header>
       <Segment>
         <Input placeholder='検索' background={'gray.100'} />
         <Grid templateColumns='repeat(3, 1fr)'>
-          {[...Array(10)].map((x) => (
-            <GridItem key={x} colSpan={1}>
+          {articlesData.map((x) => (
+            <GridItem key={x.alias} colSpan={1}>
               <Link href='articleviewer'>
-                <SearchArticleCard key={x} />
+                <SearchArticleCard
+                  key={x.alias}
+                  title={x.title}
+                  author={x.author_address}
+                  createdAt={x.created_at}
+                  updatedAt={x.updated_at}
+                />
               </Link>
             </GridItem>
           ))}
