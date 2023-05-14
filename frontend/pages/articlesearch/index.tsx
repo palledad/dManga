@@ -7,7 +7,7 @@ import { GetStaticProps } from 'next'
 import { Article, DefaultApi } from '../../api'
 
 export const getStaticProps: GetStaticProps = async () => {
-  const articleAlias = ['string', '2', '3', 'eeee', 'aaa', 'onvm8flrpr']
+  const articleAlias = ['2d84s4h0a']
 
   const promises = articleAlias.map((alias) =>
     new DefaultApi().getArticle(alias).then((x) => x.data),
@@ -34,7 +34,7 @@ const MyPage = ({ articlesData }: MyPageProps) => {
         <Grid templateColumns='repeat(3, 1fr)'>
           {articlesData.map((x) => (
             <GridItem key={x.alias} colSpan={1}>
-              <Link href='articleviewer'>
+              <Link href={`articleviewer/${x.alias}`}>
                 <SearchArticleCard
                   key={x.alias}
                   title={x.title}

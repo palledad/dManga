@@ -7,7 +7,7 @@ import Delimiter from '../ArticleElement/Delimiter'
 import LinkTool from '../ArticleElement/LinkTool'
 import List from '../ArticleElement/ListElement'
 import Quote from '../ArticleElement/Quote'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 type Props = {
   articleJson: { [index: string]: any }
@@ -33,9 +33,7 @@ const ArticleColumn: React.FC<Props> = ({ articleJson }) => {
         return <p>未対応</p>
     }
   }
-  useEffect(() => {
-    articleJson.blocks.map((dic: any) => elementGenerator(dic))
-  }, [])
+
   return (
     <>
       <Box height={'20em'} background={'gray.100'}>
@@ -48,7 +46,11 @@ const ArticleColumn: React.FC<Props> = ({ articleJson }) => {
         <Box>タグ一覧</Box>
       </Segment>
       <Segment>
-        <Box>{articleJson.blocks.map((dic: any) => elementGenerator(dic))}</Box>
+        <Box>
+          {JSON.parse(articleJson.content).blocks
+            ? JSON.parse(articleJson.content).blocks.map((dic: any) => elementGenerator(dic))
+            : ''}
+        </Box>
       </Segment>
     </>
   )

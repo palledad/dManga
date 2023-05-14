@@ -9,7 +9,7 @@ const MyArticleCardTab = () => {
       <Grid templateColumns='repeat(3, 1fr)'>
         {[...Array(10)].map((x) => (
           <GridItem key={x} colSpan={1}>
-            <Link href='/articleviewer'>
+            <Link href={`articleviewer/${x.alias}`}>
               <MyArticleCard />
             </Link>
           </GridItem>
