@@ -32,9 +32,8 @@ const ArticleViewer = ({ articleData }: MyPageProps) => {
     <>
       <Header></Header>
       <Grid templateColumns='repeat(4, 1fr)'>
-        {/*<p>{JSON.stringify(articleData)}</p>*/}
         <GridItem colSpan={3}>
-          <ArticleColumn articleJson={articleData} />
+          <ArticleColumn articleData={articleData} />
         </GridItem>
         <GridItem colSpan={1}>
           <SideColumn />

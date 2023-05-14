@@ -10,9 +10,9 @@ import Quote from '../ArticleElement/Quote'
 import React from 'react'
 
 type Props = {
-  articleJson: { [index: string]: any }
+  articleData: { [index: string]: any }
 }
-const ArticleColumn: React.FC<Props> = ({ articleJson }) => {
+const ArticleColumn: React.FC<Props> = ({ articleData }) => {
   const elementGenerator = (articleDic: any) => {
     switch (articleDic.type) {
       case 'paragraph':
@@ -40,15 +40,15 @@ const ArticleColumn: React.FC<Props> = ({ articleJson }) => {
         サムネイル画像
       </Box>
       <Segment>
-        <Box>記事タイトル</Box>
+        <Box>{articleData.title}</Box>
       </Segment>
       <Segment>
         <Box>タグ一覧</Box>
       </Segment>
       <Segment>
         <Box>
-          {JSON.parse(articleJson.content).blocks
-            ? JSON.parse(articleJson.content).blocks.map((dic: any) => elementGenerator(dic))
+          {JSON.parse(articleData.content).blocks
+            ? JSON.parse(articleData.content).blocks.map((dic: any) => elementGenerator(dic))
             : ''}
         </Box>
       </Segment>
