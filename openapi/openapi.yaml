@@ -177,6 +177,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Article'
+
+  /searchArticles:
+    get:
+      description: search articles
+      operationId: searchArticles
+      parameters:
+        - name: keyword
+          in: query
+          description: keyword to search
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: search result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
   
   /tags:
     post:

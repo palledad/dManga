@@ -61,8 +61,9 @@ func main() {
 	tagModel := models.NewTagModel()
 	userService := services.NewUsersService(db, userModel)
 	articlesService := services.NewArticlesService(db, articleModel)
+	searchArticlesService := services.NewSearchArticlesService(db, articleModel)
 	tagService := services.NewTagService(db, tagModel)
 	imageLinkService := services.NewImageLinksService(s3Client)
-	controller.NewRouter(r, userService, imageLinkService, articlesService, tagService)
+	controller.NewRouter(r, userService, imageLinkService, articlesService, (*services.SearchArticlesService)(searchArticlesService), tagService)
 	_ = r.Run()
 }
