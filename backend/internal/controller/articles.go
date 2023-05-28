@@ -19,13 +19,26 @@ func (h *Handler) PostArticle(c *gin.Context) {
 		})
 		return
 	}
+	tagUUIDs := make([]uuid.UUID, len(articleReq.Tags))
+	for i, tagStr := range articleReq.Tags {
+		tagUUID, err := uuid.Parse(tagStr)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, &Error{
+				Code:    int32(http.StatusBadRequest),
+				Type:    http.StatusText(http.StatusBadRequest),
+				Message: err.Error(),
+			})
+			return
+		}
+		tagUUIDs[i] = tagUUID
+	}
 	article, err := h.articlesService.CreateArticle(&models.Article{
 		ID:            uuid.New(),
 		Title:         articleReq.Title,
 		Content:       articleReq.Content,
 		Alias:         *articleReq.Alias,
 		AuthorAddress: articleReq.AuthorAddress,
-	})
+	}, tagUUIDs)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, &Error{
 			Code:    int32(http.StatusBadRequest),
@@ -78,7 +91,7 @@ func (h *Handler) UpdateArticle(c *gin.Context, articleId string) {
 		})
 		return
 	}
-	uuid, err := uuid.Parse(articleId)
+	articleUUID, err := uuid.Parse(articleId)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, &Error{
 			Code:    int32(http.StatusBadRequest),
@@ -87,7 +100,21 @@ func (h *Handler) UpdateArticle(c *gin.Context, articleId string) {
 		})
 		return
 	}
-	article, err := h.articlesService.UpdateArticle(uuid, articleReq.Title, articleReq.Content)
+	tagUUIDs := make([]uuid.UUID, len(articleReq.Tags))
+	for i, tagStr := range articleReq.Tags {
+		tagUUID, err := uuid.Parse(tagStr)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, &Error{
+				Code:    int32(http.StatusBadRequest),
+				Type:    http.StatusText(http.StatusBadRequest),
+				Message: err.Error(),
+			})
+			return
+		}
+		tagUUIDs[i] = tagUUID
+	}
+
+	article, err := h.articlesService.UpdateArticle(articleUUID, articleReq.Title, articleReq.Content, tagUUIDs)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, &Error{
 			Code:    int32(http.StatusInternalServerError),
