@@ -31,7 +31,9 @@ func (m *ArticlesTagsModel) RecordTags(db *gorm.DB, articleID uuid.UUID, tagIDs 
 }
 
 func (m *ArticlesTagsModel) UpdateTags(db *gorm.DB, articleID uuid.UUID, tagIDs []uuid.UUID) error {
-	db.Delete(&ArticleTag{}, "artilce_id = ?", articleID)
+	if err := db.Unscoped().Delete(&ArticleTag{}, "artilce_id = ?", articleID).Error; err != nil {
+		return err
+	}
 	recordingTags := make([]ArticleTag, len(tagIDs))
 	for i, tagID := range tagIDs {
 		articleTag := ArticleTag{
