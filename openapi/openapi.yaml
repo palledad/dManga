@@ -279,6 +279,7 @@ components:
         - title
         - content
         - author_address
+        - tags
       properties:
         title:
           type: "string"
@@ -288,6 +289,10 @@ components:
           type: "string"
         alias:
           type: "string"
+        tags:
+          type: "array"
+          items: 
+            type: "string"
           
     PostTagEntry:
       type: "object"
@@ -322,6 +327,7 @@ components:
         - title
         - content
         - author_address
+        - tags
         - created_at
         - updated_at
       properties:
@@ -337,6 +343,11 @@ components:
         alias:
           type: "string"
           example: "polygon-create-wallet"
+        tags:
+          type: "array"
+          items:
+            $ref: '#/components/schemas/Tag'
+          description: 記事に関連しているタグのデータ
         created_at:
           type: "number"
         updated_at:

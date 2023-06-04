@@ -7,8 +7,9 @@ import (
 )
 
 type ArticleService struct {
-	articleModel *models.ArticleModel
-	db           *gorm.DB
+	articleModel      *models.ArticleModel
+	articlesTagsModel *models.ArticlesTagsModel
+	db                *gorm.DB
 }
 
 func NewArticlesService(db *gorm.DB, articleModel *models.ArticleModel) *ArticleService {
@@ -18,8 +19,22 @@ func NewArticlesService(db *gorm.DB, articleModel *models.ArticleModel) *Article
 	}
 }
 
-func (a *ArticleService) CreateArticle(article *models.Article) (*models.Article, error) {
-	if _, err := a.articleModel.CreateArticle(a.db, article); err != nil {
+func (a *ArticleService) CreateArticle(article *models.Article, tagIDs []uuid.UUID) (*models.Article, error) {
+	tx := a.db.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+	if _, err := a.articleModel.CreateArticle(tx, article); err != nil {
+		tx.Rollback()
+		return nil, err
+	}
+	if err := a.articlesTagsModel.RecordTags(tx, article.ID, tagIDs); err != nil {
+		tx.Rollback()
+		return nil, err
+	}
+	if err := tx.Commit().Error; err != nil {
 		return nil, err
 	}
 	return article, nil
@@ -33,8 +48,26 @@ func (a *ArticleService) ReadArticle(alias string) (*models.Article, error) {
 	return article, nil
 }
 
-func (a *ArticleService) UpdateArticle(articleId uuid.UUID, title string, content string) (*models.Article, error) {
-	return a.articleModel.UpdateArticle(a.db, articleId, title, content)
+func (a *ArticleService) UpdateArticle(articleId uuid.UUID, title string, content string, tagIDs []uuid.UUID) (*models.Article, error) {
+	tx := a.db.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+	article, err := a.articleModel.UpdateArticle(a.db, articleId, title, content)
+	if err != nil {
+		tx.Rollback()
+		return nil, err
+	}
+	if err := a.articlesTagsModel.UpdateTags(tx, articleId, tagIDs); err != nil {
+		tx.Rollback()
+		return nil, err
+	}
+	if err := tx.Commit().Error; err != nil {
+		return nil, err
+	}
+	return article, nil
 }
 
 func (a *ArticleService) DeleteArticle(articleId uuid.UUID) (*models.Article, error) {
